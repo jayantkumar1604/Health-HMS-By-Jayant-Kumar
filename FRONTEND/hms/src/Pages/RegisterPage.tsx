@@ -4,10 +4,11 @@ import {IconHeartbeat} from "@tabler/icons-react";
 import { useForm } from '@mantine/form';
 import {Link} from "react-router-dom";
 import {match} from "node:assert";
-
+import { registerUser } from "../Service/UserService";
 const RegisterPage = () => {
   const form = useForm({
     initialValues: {
+      name: '',
       type:"PATIENT",
       email: '',
       password: '',
@@ -15,13 +16,26 @@ const RegisterPage = () => {
     },
 
     validate: {
+      name:(value: string) => (!value?"Name is required":null),
       email: (value: string) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      password:(value: any)=> (!value?"Password is required":null),
+      password: (value: any) => {
+        if (!value) return "Password is required";
+
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+
+        return !regex.test(value)
+            ? "Password must be 8-15 chars, include uppercase, lowercase, number & special character"
+            : null;
+      },
       confirmPassword: (value:any , values: any) => (value === values.password ? null : "Passwords do not match")
     },
   });
   const handleSubmit = (values: typeof form.values) => {
-    console.log(values);
+    registerUser(values).then((data) => {
+      console.log(data)
+    }).catch((error:any) => {
+      console.log(error)
+    })
   };
 
   return (
@@ -35,6 +49,7 @@ const RegisterPage = () => {
           <form onSubmit={form.onSubmit(handleSubmit)} className='flex flex-col gap-5 [&_input]:placeholder-neutral-100 [&_.mantine-Input-input]:!border-white focus-within:[&_.mantine-Input-input]:!border-pink-400 [&_.mantine-Input-input]:!border [&_input]:!pl-2 [&_svg]:text-white [&_input]:!text-white '>
             <div className='self-center font-medium font-heading text-white text-xl'>Register</div>
             <SegmentedControl {...form.getInputProps('type')} fullWidth size="md" radius="md" color="pink" bg="none" className="[&_*]:!text-white border border-white" data={[{label:'Patient', value:"PATIENT"},{label:'Doctor', value:'DOCTOR'},{label:'Admin', value:"ADMIN"}]} />
+            <TextInput  {...form.getInputProps('name')} className='transition duration-300' variant="unstyled" size="md" radius="md" placeholder="Name"/>
             <TextInput  {...form.getInputProps('email')} className='transition duration-300' variant="unstyled" size="md" radius="md" placeholder="Email"/>
             <PasswordInput  {...form.getInputProps('password')} className='transition duration-300' variant="unstyled" size="md" radius="md" placeholder="Password"/>
             <PasswordInput  {...form.getInputProps('confirmPassword')} className='transition duration-300' variant="unstyled" size="md" radius="md" placeholder="ConfirmPassword"/>

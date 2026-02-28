@@ -40,7 +40,7 @@ public class ExceptionControllerAdvice {
             errorMsg = manv.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(","));
         } else {
             ConstraintViolationException cve = (ConstraintViolationException) e;
-            errorMsg = cve.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining());
+            errorMsg = cve.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(","));
         }
         ErrorInfo error=new ErrorInfo(errorMsg,  HttpStatus.BAD_REQUEST.value(), LocalDateTime.now());
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
