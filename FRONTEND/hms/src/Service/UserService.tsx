@@ -1,8 +1,14 @@
 import axiosInstance from "../Interceptor/Axiosinterceptor"
 
 const registerUser=async(user: any) =>{
-    return axiosInstance.post('user/registerUser',user)
+    return axiosInstance.post('user/register',user)
         .then((response:any)=>response.data)
         .catch((error:any)=>{throw error;})
 }
-export {registerUser};
+
+const loginUser=async(user: any) =>{
+    return axiosInstance.post('user/login',user)
+        .then((response:any)=>response.data)
+        .catch((error:any)=>{throw error;})
+}
+export {registerUser,loginUser};

@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d4e4b12-4a0b-4506-902c-8aef3eb5a2a3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BACKEND/GatewayMS/src/main/java/com/hms/gateway/filter/TokenFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/config/CorsConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/UserMS/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/UserMS/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/api/UserAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/api/UserAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/service/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/UserMS/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/UserMS/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACKEND/GatewayMS/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/GatewayMS/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/config/CorsConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,6 +123,11 @@
       <workItem from="1772035413271" duration="606000" />
       <workItem from="1772111994848" duration="613000" />
       <workItem from="1772170273996" duration="7266000" />
+      <workItem from="1772263795666" duration="337000" />
+      <workItem from="1772276948798" duration="2215000" />
+      <workItem from="1772364662723" duration="1753000" />
+      <workItem from="1772432030629" duration="4000" />
+      <workItem from="1772565363781" duration="1631000" />
     </task>
     <servers />
   </component>

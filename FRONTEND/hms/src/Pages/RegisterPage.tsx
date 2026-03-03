@@ -2,14 +2,19 @@ import React from 'react'
 import {Button, PasswordInput, SegmentedControl, TextInput} from "@mantine/core";
 import {IconHeartbeat} from "@tabler/icons-react";
 import { useForm } from '@mantine/form';
-import {Link} from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 import {match} from "node:assert";
 import { registerUser } from "../Service/UserService";
+import {successNotification,errorNotification} from "../Utility/NotificationUtil"
+
 const RegisterPage = () => {
+  const navigate=useNavigate();
+  const [loading, setLoading] = React.useState(false);
   const form = useForm({
     initialValues: {
       name: '',
-      type:"PATIENT",
+      role:"PATIENT",
       email: '',
       password: '',
       confirmPassword: "",
@@ -31,15 +36,15 @@ const RegisterPage = () => {
     },
   });
   const handleSubmit = (values: typeof form.values) => {
+    setLoading(true);
     registerUser(values).then((data) => {
-      console.log(data)
+      successNotification("Registration Successfully.");
+      navigate("/login");
     }).catch((error:any) => {
-      console.log(error)
-    })
+      errorNotification(error.response.data.errorMessage);
+    }).finally(()=>setLoading(false));
   };
-
   return (
-
       <div style={{ background: 'url("/bg.jpg")' }} className='h-screen w-screen !bg-cover !bg-center !bg-no-repeat flex flex-col items-center justify-center'>
         <div className='py-3 text-pink-500 flex gap-1 items-center'>
           <IconHeartbeat size={45} stroke={2.5}/>
@@ -53,7 +58,7 @@ const RegisterPage = () => {
             <TextInput  {...form.getInputProps('email')} className='transition duration-300' variant="unstyled" size="md" radius="md" placeholder="Email"/>
             <PasswordInput  {...form.getInputProps('password')} className='transition duration-300' variant="unstyled" size="md" radius="md" placeholder="Password"/>
             <PasswordInput  {...form.getInputProps('confirmPassword')} className='transition duration-300' variant="unstyled" size="md" radius="md" placeholder="ConfirmPassword"/>
-            <Button radius="md" size="md" type='submit' color="pink">Register</Button>
+            <Button loading={loading} radius="md" size="md" type='submit' color="pink">Register</Button>
             <div className="text-neutral-100 text-sm self-center">Have an account? <Link to="/login" className="">Login</Link> </div>
           </form>
         </div>

@@ -1,7 +1,12 @@
 import './App.css';
 import {Button, createTheme, MantineProvider} from "@mantine/core";
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 import AppRoutes from "./Routes/AppRoutes";
+import { Notifications } from '@mantine/notifications';
+import {Provider} from 'react-redux';
+import store from "./Store";   // if using default export
+
 const theme = createTheme({
   focusRing:"never",
   fontFamily:"Poppins, sans-serif",
@@ -21,9 +26,12 @@ const theme = createTheme({
 
 function App() {
   return (
-      <MantineProvider>
+      <Provider store={store}>
+        <MantineProvider>
+        <Notifications position='top-center'/>
         <AppRoutes />
       </MantineProvider>
+         </Provider>
   );
 }
 export default App;

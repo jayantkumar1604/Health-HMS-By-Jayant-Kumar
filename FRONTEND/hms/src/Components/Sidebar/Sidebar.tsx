@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
     IconCalendarWeek,
     IconHeartbeat,
@@ -19,6 +20,7 @@ const links=[
 
 ]
 const Sidebar= () => {
+    const user=useSelector((state:any)=>state.user);
     return (
         <div className='flex'>
             <div className='w-64'>
@@ -40,8 +42,8 @@ const Sidebar= () => {
                 <div className='p-1 bg-white rounded-full shadow-lg'>
                     <Avatar variant='filled' src="avatar.png" size="xl" alt=" it's me "/>
                 </div>
-                    <span className='font-medium text-light'>Jayant</span>
-                <Text c="dimmed" className='text-light' size='xs'> Admin</Text>
+                    <span className='font-medium text-light'>{user.name}</span>
+                <Text c="dimmed" className='text-light' size='xs'> {user.role}</Text>
             </div>
             <div className='flex flex-col gap-1'>
                 {

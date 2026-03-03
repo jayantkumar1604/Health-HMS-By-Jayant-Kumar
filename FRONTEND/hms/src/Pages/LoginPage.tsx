@@ -1,10 +1,19 @@
 import React from 'react'
+import { loginUser } from "../Service/UserService";
 import {Button, PasswordInput, TextInput} from "@mantine/core";
 import {IconHeartbeat} from "@tabler/icons-react";
 import { useForm } from '@mantine/form';
-import {Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {successNotification,errorNotification} from "../Utility/NotificationUtil"
+import { useDispatch } from "react-redux";
+import { setJwt } from "../Slices/JwtSlice";
+import {jwtDecode} from 'jwt-decode';
+import {setUser} from '../Slices/UserSlice'
 
 const LoginPage = () => {
+    const dispatch=useDispatch();
+    const navigate=useNavigate();
+    const [loading, setLoading] = React.useState(false);
     const form = useForm({
         initialValues: {
             email: '',
@@ -17,9 +26,17 @@ const LoginPage = () => {
         },
     });
     const handleSubmit = (values: typeof form.values) => {
-        console.log(values);
+        setLoading(true);
+        loginUser(values).then((_data) => {
+                successNotification("Login successfully.");
+                dispatch(setJwt(_data));
+                dispatch(setUser(jwtDecode(_data)));
+                // navigate("/dashboard");
+            })
+            .catch((error) => {
+                errorNotification(error?.response?.data?.data?.errorMessage);
+            }).finally(()=>setLoading(false));
     };
-
     return (
 
     <div style={{ background: 'url("/bg.jpg")' }} className='h-screen w-screen !bg-cover !bg-center !bg-no-repeat flex flex-col items-center justify-center'>
@@ -32,7 +49,7 @@ const LoginPage = () => {
                     <div className='self-center font-medium font-heading text-white text-xl'>Login</div>
                     <TextInput  {...form.getInputProps('email')} className='transition duration-300' variant="unstyled" size="md" radius="md" placeholder="Email"/>
                     <PasswordInput  {...form.getInputProps('password')} className='transition duration-300' variant="unstyled" size="md" radius="md" placeholder="Password"/>
-                    <Button radius="md" size="md" type='submit' color="red">Login</Button>
+                    <Button loading={loading} radius="md" size="md" type='submit' color="red">Login</Button>
                     <div className="text-neutral-100 text-sm self-center">Don't have an account? <Link to="/register" className="">Register</Link> </div>
                 </form>
             </div>
