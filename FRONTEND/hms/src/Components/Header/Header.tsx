@@ -15,7 +15,7 @@ const Header= () => {
     const dispatch=useDispatch();
     const jwt=useSelector((state:any)=>state.jwt);
     const handleLogout=()=>{
-        // console.log("Logout")
+        //
         dispatch(removeJwt());
         dispatch(removeUser());
     }

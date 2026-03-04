@@ -5,9 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d4e4b12-4a0b-4506-902c-8aef3eb5a2a3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/ProfileMsApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/api/DoctorAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/api/PatientAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/config/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/dto/BloodGroup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/dto/DoctorDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/dto/PatientDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/entity/Doctor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/entity/Patient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/exception/HmsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/repository/DoctorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/repository/PatientRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/service/DoctorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/service/DoctorServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/service/PatientService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/service/PatientServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/utility/ErrorInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/java/com/hms/profile/utility/ExceptionControllerAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND/ProfileMS/src/test/java/com/hms/profile/ProfileMsApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/GatewayMS/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/GatewayMS/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/UserMS/src/main/java/com/hms/user/config/CorsConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +152,9 @@
       <workItem from="1772276948798" duration="2215000" />
       <workItem from="1772364662723" duration="1753000" />
       <workItem from="1772432030629" duration="4000" />
-      <workItem from="1772565363781" duration="1631000" />
+      <workItem from="1772565363781" duration="8909000" />
+      <workItem from="1772576643970" duration="401000" />
+      <workItem from="1772631989369" duration="698000" />
     </task>
     <servers />
   </component>
