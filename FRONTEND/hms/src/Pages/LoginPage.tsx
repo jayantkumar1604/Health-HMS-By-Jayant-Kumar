@@ -27,11 +27,12 @@ const LoginPage = () => {
     });
     const handleSubmit = (values: typeof form.values) => {
         setLoading(true);
+
         loginUser(values).then((_data) => {
                 successNotification("Login successfully.");
                 dispatch(setJwt(_data));
                 dispatch(setUser(jwtDecode(_data)));
-                // navigate("/dashboard");
+
             })
             .catch((error) => {
                 errorNotification(error?.response?.data?.data?.errorMessage);
