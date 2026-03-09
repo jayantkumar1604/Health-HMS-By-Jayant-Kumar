@@ -5,9 +5,11 @@ import ProtectedRoute from "./ProtectedRoutes"
 import Random from "../Components/Random";
 import AdminDashboard from "../Layout/AdminDashboard";
 import PatientDashboard from "../Layout/PatientDashboard";
+import DoctorDashboard from "../Layout/DoctorDashboard";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import PatientProfilePage from "../Pages/Patient/PatientProfilePage"
+import DoctorProfilePage from "../Pages/Doctor/DoctorProfilePage"
 
 const AppRoutes = () => {
     return (
@@ -20,6 +22,14 @@ const AppRoutes = () => {
                     <Route path="/pharmacy" element={<Random />} />
                     <Route path="/patients" element={<Random />} />
                     <Route path="/doctors" element={<Random />} />
+                </Route>
+
+                <Route path="/doctor" element={<ProtectedRoute><DoctorDashboard /></ProtectedRoute>}>
+                    <Route path="dashboard" element={<Random />} />
+                    <Route path="profile" element={<DoctorProfilePage />} />
+                    <Route path="pharmacy" element={<Random />} />
+                    <Route path="patients" element={<Random />} />
+                    <Route path="doctors" element={<Random />} />
                 </Route>
 
                 <Route path="/patient" element={<ProtectedRoute><PatientDashboard /></ProtectedRoute>}>

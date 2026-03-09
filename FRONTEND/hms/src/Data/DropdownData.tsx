@@ -1,2 +1,4 @@
 const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
-export { bloodGroups };
+const doctorSpecializations = ["Cardiologist","Dermatologist","Neurologist","Orthopedic","Pediatrician","Psychiatrist","Gynecologist","Oncologist","Radiologist","General Physician","ENT Specialist","Urologist","Gastroenterologist","Pulmonologist","Endocrinologist","Nephrologist"];
+const doctorDepartments = ["Cardiology","Dermatology","Neurology","Orthopedics","Pediatrics","Psychiatry","Gynecology","Oncology","Radiology","General Medicine","ENT","Urology","Gastroenterology","Pulmonology","Endocrinology","Nephrology","Ophthalmology","Anesthesiology","Pathology","Emergency Medicine"];
+export { bloodGroups , doctorSpecializations, doctorDepartments};

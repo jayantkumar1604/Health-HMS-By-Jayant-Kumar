@@ -7,21 +7,20 @@ import { Avatar, Text, Divider, Table, Button, TextInput } from "@mantine/core";
 import { useSelector } from "react-redux";
 import { IconEdit } from "@tabler/icons-react";
 import { TagsInput } from '@mantine/core';
-import {bloodGroups} from "../../../Data/DropdownData"
+import {doctorSpecializations, doctorDepartments} from "../../../Data/DropdownData"
 import { useDisclosure } from '@mantine/hooks';
 import { Modal} from '@mantine/core';
-
-const patient:any = {
-        name: "John Doe",
-        email: "john.doe@example.com",
-        dob: "1990-05-15",
-        phone: "+91 9876543210",
-        address: "123, Main Street, Mumbai",
-        aadharNo: "1234-5678-9012",
-        bloodGroup: "O+",
-        allergies: "Peanuts",
-        chronicDisease: "Diabetes",
-        profilePictures: "http://randomuser.me/api/protraits/men/75.jpd",
+const doctor: any = {
+    name: "Dr. Michael Smith",
+    email: "michael.smith@example.com",
+    dob: "1985-08-12",
+    phone: "+91 9876543210",
+    address: "45, Park Avenue, Delhi",
+    licenseNo: "MED-IND-456789",
+    specialization: "Cardiologist",
+    department: "Cardiology",
+    totalExp: "12 Years",
+    profilePicture: "https://randomuser.me/api/portraits/men/75.jpg"
 };
 
 
@@ -29,7 +28,6 @@ const Profile = () => {
     const user = useSelector((state:any)=>state.user);
     const [opened,{open,close}]=useDisclosure(false);
     const [editMode,setEdit]=useState(false);
-    const {profile, setProfile}=useState({});
     return (
         <div className="p-10">
             <div className="flex justify-between items-start">
@@ -54,37 +52,37 @@ const Profile = () => {
                 <Table.Tr>
                     <Table.Td className="font-semibold text-xl">Date of Birth</Table.Td>
                     {editMode ? <Table.Td className="text-xl"> <DateInput placeholder="Date input"
-                    /></Table.Td> : <Table.Td className="text-xl"> {patient.dob}</Table.Td>}
+                    /></Table.Td> : <Table.Td className="text-xl"> {doctor.dob}</Table.Td>}
                 </Table.Tr>
 
                 <Table.Tr>
                     <Table.Td className="font-semibold text-xl">Phone</Table.Td>
-                    {editMode ? <Table.Td className="text-xl"> <NumberInput maxLength={10} clampBehavior="strict" placeholder="Phone number" hideControls /></Table.Td> : <Table.Td className="text-xl"> {patient.phone}</Table.Td>}
+                    {editMode ? <Table.Td className="text-xl"> <NumberInput maxLength={10} clampBehavior="strict" placeholder="Phone number" hideControls /></Table.Td> : <Table.Td className="text-xl"> {doctor.phone}</Table.Td>}
                 </Table.Tr>
 
                 <Table.Tr>
                     <Table.Td className="font-semibold text-xl">Address</Table.Td>
-                    {editMode ? <Table.Td className="text-xl"> <TextInput placeholder="Address" /></Table.Td> : <Table.Td className="text-xl"> {patient.address}</Table.Td>}
+                    {editMode ? <Table.Td className="text-xl"> <TextInput placeholder="Address" /></Table.Td> : <Table.Td className="text-xl"> {doctor.address}</Table.Td>}
                 </Table.Tr>
 
                 <Table.Tr>
-                    <Table.Td className="font-semibold text-xl">Aadhar Number</Table.Td>
-                    {editMode ? <Table.Td className="text-xl"> <NumberInput maxLength={12} clampBehavior="strict" placeholder="Aadhar number" hideControls /></Table.Td> : <Table.Td className="text-xl"> {patient.aadharNo}</Table.Td>}
+                    <Table.Td className="font-semibold text-xl">License Number</Table.Td>
+                    {editMode ? <Table.Td className="text-xl"> <NumberInput maxLength={12} clampBehavior="strict" placeholder="Aadhar number" hideControls /></Table.Td> : <Table.Td className="text-xl"> {doctor.licenseNo}</Table.Td>}
                 </Table.Tr>
 
                 <Table.Tr>
-                    <Table.Td className="font-semibold text-xl">Blood Group</Table.Td>
-                    {editMode ? <Table.Td className="text-xl"> <Select placeholder="Blood Group" data={bloodGroups}/></Table.Td> : <Table.Td className="text-xl"> {patient.bloodGroup}</Table.Td>}
+                    <Table.Td className="font-semibold text-xl">Specialization</Table.Td>
+                    {editMode ? <Table.Td className="text-xl"> <Select placeholder="Specialization" data={doctorSpecializations}/></Table.Td> : <Table.Td className="text-xl"> {doctor.specialization}</Table.Td>}
                 </Table.Tr>
 
-                <Table.Tr>
-                    <Table.Td className="font-semibold text-xl">Allergies</Table.Td>
-                    {editMode ? <Table.Td className="text-xl"> <TagsInput placeholder="Allergies separated by comma" /></Table.Td> : <Table.Td className="text-xl">{patient.allergies}</Table.Td>}
-                </Table.Tr>
+                    <Table.Tr>
+                        <Table.Td className="font-semibold text-xl">Department</Table.Td>
+                        {editMode ? <Table.Td className="text-xl"> <Select placeholder="Department" data={doctorDepartments}/></Table.Td> : <Table.Td className="text-xl"> {doctor.department}</Table.Td>}
+                    </Table.Tr>
 
                 <Table.Tr>
-                    <Table.Td className="font-semibold text-xl">Chronic Disease</Table.Td>
-                    {editMode ? <Table.Td className="text-xl"><TagsInput placeholder="Chronic Disease separated by comma" /></Table.Td> : <Table.Td className="text-xl">{patient.chronicDisease}</Table.Td>}
+                    <Table.Td className="font-semibold text-xl">Total Experience</Table.Td>
+                    {editMode ? <Table.Td className="text-xl"><NumberInput maxLength={2} max={50} clampBehavior='strict' placeholder="Total Experience" hideControls/></Table.Td> : <Table.Td className="text-xl">{doctor.totalExp} years</Table.Td>}
                 </Table.Tr>
                 </Table.Tbody>
             </Table>
