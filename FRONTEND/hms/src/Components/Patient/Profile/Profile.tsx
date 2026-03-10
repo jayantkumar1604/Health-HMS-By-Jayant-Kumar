@@ -7,12 +7,13 @@ import { Avatar, Text, Divider, Table, Button, TextInput } from "@mantine/core";
 import { useSelector } from "react-redux";
 import { IconEdit } from "@tabler/icons-react";
 import { TagsInput } from '@mantine/core';
-import {bloodGroups} from "../../../Data/DropdownData"
+import {bloodGroups, bloodGroup} from "../../../Data/DropdownData"
 import { useDisclosure } from '@mantine/hooks';
 import { Modal} from '@mantine/core';
 import { useForm } from '@mantine/form';
 import {formatDate} from "../../../Utility/DateUtility"
-import {errorNotification} from "../../../Utility/NotificationUtil"
+import {errorNotification,successNotification} from "../../../Utility/NotificationUtil"
+import {arrayToCSV} from "../../../Utility/OtherUtility";
 
 const patient:any = {
         name: "John Doe",
@@ -36,7 +37,11 @@ const Profile = () => {
     useEffect(() => {
         console.log(user);
         getPatient(user.profileId).then((data)=>{
-            setProfile(data);
+            setProfile({
+                ...data,
+                allergies: data.allergies ? (JSON.parse(data.allergies)):null,
+                chronicDisease: data.chronicDisease ? (JSON.parse(data.chronicDisease)) :null
+            });
             console.log(data);
         }).catch((error)=>{
             console.log(error);
@@ -45,13 +50,13 @@ const Profile = () => {
 
     const form = useForm({
         initialValues: {
-            dob: profile.dob,
-            phone: profile.phone,
-            address: profile.address,
-            aadharNo: profile.aadharNo,
-            bloodGroup: profile.bloodGroup,
-            allergies: profile.allergies,
-            chronicDisease: profile.chronicDisease
+            dob: '',
+            phone: '',
+            address: '',
+            aadharNo: '',
+            bloodGroup: '',
+            allergies: [],
+            chronicDisease: [],
         },
 
         validate: {
@@ -61,19 +66,41 @@ const Profile = () => {
             aadharNo: (value: any) => !value ? 'Aadhar number is required' : undefined,
         }
     });
+    const handleEdit = () => {
+        form.setValues({
+            ...profile,
+            dob: profile.dob ? new Date(profile.dob) : undefined,
+            chronicDisease: profile.chronicDisease ?? [],
+            allergies: profile.allergies ?? []
+        });
 
-    const handleSubmit = (values:any) => {
-        updatePatient({...profile,...values}).then((data)=>{
-            setEdit(false);
-        }).catch((error)=>{
-            errorNotification(error.response.data.errorMessage);
-        })
+        setEdit(true);
     }
+    const handleSubmit = (e:any) => {
+        let values=form.getValues();
+        form.validate();
+        if(!form.isValid())return;
+        console.log(values);
+        updatePatient({
+            ...profile,
+            ...values,
+            allergies: values.allergies ? JSON.stringify(values.allergies) : null,
+            chronicDisease: values.chronicDisease ? JSON.stringify(values.chronicDisease): null
+        })
+            .then((data)=>{
+                successNotification("Profile updated successfully.");
+                setProfile({ ...profile, ...values});
+                setEdit(false);
+            })
+            .catch((error)=>{
+                errorNotification(error.response?.data?.errorMessage || "Update failed");
+            });
+    };
     return (
-        <form onSubmit={form.onSubmit(handleSubmit)} className="p-10">
+        <div className="p-10">
             <div className="flex justify-between items-start">
                 <div className="flex gap-5 items-center">
-                    <div className="flex flex-col items-centre gap-3">
+                    <div className="flex flex-col items-center gap-3">
                         <Avatar variant='filled' src="/avatar.png" size="150" alt="it's me"/>
                         {editMode && <Button size="sm" onClick={open} variant="filled">Upload</Button>}
                     </div>
@@ -82,14 +109,14 @@ const Profile = () => {
                     <div className="text-xl text-neutral-700">{user?.email} </div>
                 </div>
             </div>
-                {!editMode ? <Button type="button" size="lg" onClick={()=> setEdit(true)} variant="filled" leftSection={<IconEdit />} >Edit</Button> :
-                    <Button size="lg" type="submit" variant="filled">Submit</Button>}
+                {!editMode ? <Button type="button" size="lg" onClick={handleEdit} variant="filled" leftSection={<IconEdit />} >Edit</Button> :
+                    <Button onClick={handleSubmit} size="lg" type="submit" variant="filled">Submit</Button>}
             </div>
             <Divider my="xl" />
             <div>
                 <div className="text-2xl font-medium mb-5 text-neutral-900">Personal Information</div>
                 <Table striped stripedColor="teal.1" verticalSpacing="md" withRowBorders={false}>
-                <Table.Tbody className="[&>tr]:!mb-3">
+                <Table.Tbody className="[&>tr]:!mb-3 [&_td]:!w-1/2">
                 <Table.Tr>
                     <Table.Td className="font-semibold text-xl">Date of Birth</Table.Td>
                     {editMode ? <Table.Td className="text-xl"> <DateInput {...form.getInputProps("dob")} placeholder="Date input"
@@ -113,24 +140,24 @@ const Profile = () => {
 
                 <Table.Tr>
                     <Table.Td className="font-semibold text-xl">Blood Group</Table.Td>
-                    {editMode ? <Table.Td className="text-xl"> <Select {...form.getInputProps("bloodGroup")} placeholder="Blood Group" data={bloodGroups}/></Table.Td> : <Table.Td className="text-xl"> {profile.bloodGroup?? '_'}</Table.Td>}
+                    {editMode ? <Table.Td className="text-xl"> <Select {...form.getInputProps("bloodGroup")} placeholder="Blood Group" data={bloodGroups}/></Table.Td> : <Table.Td className="text-xl"> {bloodGroup[profile.bloodGroup]?? '_'}</Table.Td>}
                 </Table.Tr>
 
                 <Table.Tr>
                     <Table.Td className="font-semibold text-xl">Allergies</Table.Td>
-                    {editMode ? <Table.Td className="text-xl"> <TagsInput {...form.getInputProps("allergies")} placeholder="Allergies separated by comma" /></Table.Td> : <Table.Td className="text-xl">{profile.allergies?? '_'}</Table.Td>}
+                    {editMode ? <Table.Td className="text-xl"> <TagsInput {...form.getInputProps("allergies")} placeholder="Allergies separated by comma" /></Table.Td> : <Table.Td className="text-xl">{arrayToCSV(profile.allergies)?? '_'}</Table.Td>}
                 </Table.Tr>
 
                 <Table.Tr>
                     <Table.Td className="font-semibold text-xl">Chronic Disease</Table.Td>
-                    {editMode ? <Table.Td className="text-xl"><TagsInput {...form.getInputProps("chronicDisease")} placeholder="Chronic Disease separated by comma" /></Table.Td> : <Table.Td className="text-xl">{profile.chronicDisease ?? '_'}</Table.Td>}
+                    {editMode ? <Table.Td className="text-xl"><TagsInput {...form.getInputProps("chronicDisease")} placeholder="Chronic Disease separated by comma" /></Table.Td> : <Table.Td className="text-xl">{arrayToCSV(profile.chronicDisease) ?? '_'}</Table.Td>}
                 </Table.Tr>
                 </Table.Tbody>
             </Table>
             </div>
             <Modal centered opened={opened} onClose={close} title={<span className="text-xl medium">Upload Profile Picture</span>}>
             </Modal>
-        </form>
+        </div>
     );
 };
 
