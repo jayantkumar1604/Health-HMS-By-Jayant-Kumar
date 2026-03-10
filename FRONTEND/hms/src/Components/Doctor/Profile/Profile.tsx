@@ -1,8 +1,8 @@
 
+import { getDoctor } from "../../../Service/DoctorProfileService";
 import { DateInput } from '@mantine/dates';
 import { NumberInput } from '@mantine/core';
 import { Select } from '@mantine/core';
-import React, { useState } from 'react';
 import { Avatar, Text, Divider, Table, Button, TextInput } from "@mantine/core";
 import { useSelector } from "react-redux";
 import { IconEdit } from "@tabler/icons-react";
@@ -10,6 +10,7 @@ import { TagsInput } from '@mantine/core';
 import {doctorSpecializations, doctorDepartments} from "../../../Data/DropdownData"
 import { useDisclosure } from '@mantine/hooks';
 import { Modal} from '@mantine/core';
+import React, { useState, useEffect } from "react";
 const doctor: any = {
     name: "Dr. Michael Smith",
     email: "michael.smith@example.com",
@@ -27,7 +28,15 @@ const doctor: any = {
 const Profile = () => {
     const user = useSelector((state:any)=>state.user);
     const [opened,{open,close}]=useDisclosure(false);
-    const [editMode,setEdit]=useState(false);
+    const [profile, setProfile] = useState<any>({});
+    const [editMode, setEdit] = useState(false);
+    useEffect(() => {
+        getDoctor(user.profileId).then((data)=>{
+            setProfile(data);
+        }).catch((error)=>{
+            console.log(error);
+        })
+    }, []);
     return (
         <div className="p-10">
             <div className="flex justify-between items-start">
