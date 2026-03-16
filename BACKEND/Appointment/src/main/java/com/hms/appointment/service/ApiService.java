@@ -22,7 +22,7 @@ public class ApiService {
 
     public Mono<Boolean>patientExists(Long id){
         return webClient.build().get()
-                .uri("http://localhost:9100/profile/patient/exists" + id)
+                .uri("http://localhost:9100/profile/patient/exists/" + id)
                 .retrieve()
                 .bodyToMono(Boolean.class);
     }
