@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d4e4b12-4a0b-4506-902c-8aef3eb5a2a3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BACKEND/Appointment/src/main/java/com/hms/appointment/dto/AppointmentDetails.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/Appointment/src/main/java/com/hms/appointment/api/AppointmentAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/Appointment/src/main/java/com/hms/appointment/api/AppointmentAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/Appointment/src/main/java/com/hms/appointment/service/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/Appointment/src/main/java/com/hms/appointment/service/ApiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/Appointment/src/main/java/com/hms/appointment/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/Appointment/src/main/java/com/hms/appointment/service/AppointmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/Appointment/src/main/java/com/hms/appointment/service/AppointmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/Appointment/src/main/java/com/hms/appointment/service/AppointmentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACKEND/Appointment/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/Appointment/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACKEND/GatewayMS/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BACKEND/GatewayMS/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +154,8 @@
       <workItem from="1773512015369" duration="50000" />
       <workItem from="1773657552561" duration="1422000" />
       <workItem from="1773662028767" duration="840000" />
-      <workItem from="1773663175202" duration="481000" />
+      <workItem from="1773663175202" duration="2344000" />
+      <workItem from="1773682452508" duration="779000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,6 @@
 package com.hms.appointment.service;
 
+import com.hms.appointment.clients.ProfileClient;
 import com.hms.appointment.dto.*;
 import com.hms.appointment.entity.Appointment;
 import com.hms.appointment.exception.HmsException;
@@ -15,13 +16,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private ApiService apiService;
 
+    @Autowired
+    private ProfileClient profileClient;
+
     @Override
     public Long scheduleAppointment(AppointmentDTO appointmentDTO) throws HmsException{
-        Boolean doctorExists=apiService.doctorExists(appointmentDTO.getDoctorId()).block();
+        Boolean doctorExists=profileClient.doctorExists(appointmentDTO.getDoctorId());
         if(doctorExists==null || !doctorExists){
             throw new HmsException("DOCTOR_NOT_FOUND");
         }
-        Boolean patientExists=apiService.patientExists(appointmentDTO.getPatientId()).block();
+        Boolean patientExists=profileClient.patientExists(appointmentDTO.getPatientId());
         if(patientExists==null || !patientExists){
             throw new HmsException("PATIENT_NOT_FOUND");
         }
@@ -60,8 +64,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     public AppointmentDetails getAppointmentDetailsWithName(Long appointmentId) throws HmsException{
         AppointmentDTO appointmentDTO=appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new HmsException("APPOINTMENT_NOT_FOUND")).toDTO();
-        DoctorDTO doctorDTO=apiService.getDoctorByID(appointmentDTO.getDoctorId()).block();
-        PatientDTO patientDTO=apiService.getPatientByID(appointmentDTO.getPatientId()).block();
+        DoctorDTO doctorDTO=profileClient.getDoctorById(appointmentDTO.getDoctorId());
+        PatientDTO patientDTO=profileClient.getPatientById(appointmentDTO.getPatientId());
         return new AppointmentDetails(appointmentDTO.getId(),appointmentDTO.getPatientId(),patientDTO.getName(),patientDTO.getEmail(),patientDTO.getPhone(),appointmentDTO.getDoctorId(),doctorDTO.getName(),appointmentDTO.getAppointmentTime(),appointmentDTO.getStatus(),appointmentDTO.getReason(),appointmentDTO.getNotes());
 
     }

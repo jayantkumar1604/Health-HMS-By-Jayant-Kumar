@@ -10,6 +10,7 @@ import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import PatientProfilePage from "../Pages/Patient/PatientProfilePage"
 import DoctorProfilePage from "../Pages/Doctor/DoctorProfilePage"
+import PatientAppointmentPage from "../Pages/Patient/PatientAppointmentPage"
 
 const AppRoutes = () => {
     return (
@@ -35,7 +36,7 @@ const AppRoutes = () => {
                 <Route path="/patient" element={<ProtectedRoute><PatientDashboard /></ProtectedRoute>}>
                     <Route path="dashboard" element={<Random />} />
                     <Route path="profile" element={<PatientProfilePage />} />
-                    <Route path="appointments" element={<Random />} />
+                    <Route path="appointments" element={<PatientAppointmentPage />} />
                 </Route>
             </Routes>
         </BrowserRouter>
