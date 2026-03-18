@@ -21,4 +21,42 @@ const bloodGroup: Record<string, string> = {
 };
 const doctorSpecializations = ["Cardiologist","Dermatologist","Neurologist","Orthopedic","Pediatrician","Psychiatrist","Gynecologist","Oncologist","Radiologist","General Physician","ENT Specialist","Urologist","Gastroenterologist","Pulmonologist","Endocrinologist","Nephrologist"];
 const doctorDepartments = ["Cardiology","Dermatology","Neurology","Orthopedics","Pediatrics","Psychiatry","Gynecology","Oncology","Radiology","General Medicine","ENT","Urology","Gastroenterology","Pulmonology","Endocrinology","Nephrology","Ophthalmology","Anesthesiology","Pathology","Emergency Medicine"];
-export { bloodGroups , doctorSpecializations, doctorDepartments, bloodGroup};
+
+const appointmentReasons= [
+    "General consultation",
+    "Not feeling well",
+    "Routine check-up",
+    "Follow-up visit",
+    "New symptoms",
+    "Chronic condition review",
+    "Test results discussion",
+    "Lab tests / diagnostics",
+    "Medication review",
+    "Prescription refill",
+    "Pain or discomfort",
+    "Infection or illness",
+    "Injury or accident",
+    "Preventive care",
+    "Vaccination",
+    "Health advice",
+    "Second opinion",
+    "Emergency concern",
+    "Referral consultation",
+    "Post-surgery follow-up",
+    "Pre-surgery consultation",
+    "Health screening",
+    "Lifestyle consultation",
+    "Diet and nutrition advice",
+    "Sleep issues",
+    "Stress or anxiety",
+    "Physical examination",
+    "Medical certificate",
+    "Fitness check",
+    "Allergy issues",
+    "Long-term illness management",
+    "Diagnostic review",
+    "Therapy session",
+    "Rehabilitation follow-up",
+    "Other"
+];
+export { bloodGroups , doctorSpecializations, doctorDepartments, bloodGroup, appointmentReasons};

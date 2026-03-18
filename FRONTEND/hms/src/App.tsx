@@ -6,6 +6,7 @@ import '@mantine/dates/styles.css';
 import '@mantine/notifications/styles.css';
 import AppRoutes from "./Routes/AppRoutes";
 import { Notifications } from '@mantine/notifications';
+import { ModalsProvider } from '@mantine/modals';
 import {Provider} from 'react-redux';
 import store from "./Store";   // if using default export
 
@@ -30,12 +31,14 @@ function App() {
   return (
       <Provider store={store}>
         <MantineProvider>
-            <PrimeReactProvider>
-        <Notifications position='top-center'/>
-        <AppRoutes />
-            </PrimeReactProvider>
-      </MantineProvider>
-         </Provider>
+            <ModalsProvider>
+                <PrimeReactProvider>
+                    <Notifications position='top-center'/>
+                    <AppRoutes />
+                </PrimeReactProvider>
+            </ModalsProvider>
+        </MantineProvider>
+      </Provider>
   );
 }
 export default App;

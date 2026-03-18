@@ -13,6 +13,23 @@ const formatDate=(dateString: any)=> {
     const month = months[date.getMonth()];
 
     return `${day} ${month} ${year}`;
+
 }
 
-export {formatDate}
+const formatDateWithTime = (dateString:any) => {
+    if(!dateString) return undefined;
+    const date = new Date(dateString);
+
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        year: 'numeric',
+        month: "long",// Monday
+        day: "numeric",    // 18
+        hour: "numeric",   // 10
+        minute: "numeric", // 30
+        hour12: true       // AM/PM
+    };
+    return date.toLocaleString("en-US",options);
+}
+
+export {formatDate,formatDateWithTime}
