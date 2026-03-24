@@ -4,7 +4,7 @@ import { SegmentedControl } from '@mantine/core';
 import { Toolbar } from 'primereact/toolbar';
 import 'primereact/resources/themes/lara-light-blue/theme.css';
 import {successNotification,errorNotification} from '../../../Utility/NotificationUtil'
-import {scheduleAppointment,getAppointmentsByPatient,cancelAppointment} from '../../../Service/AppointmentService'
+import {scheduleAppointment,getAppointmentsByDoctor,cancelAppointment} from '../../../Service/AppointmentService'
 import { useSelector } from "react-redux";
 import { modals } from "@mantine/modals";
 import {formatDate,formatDateWithTime} from '../../../Utility/DateUtility'
@@ -63,7 +63,7 @@ const Appointment=()=> {
     const user=useSelector((state:any)=>state.user);
     const [filters, setFilters] = useState<DataTableFilterMeta>({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        doctorName: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+        patientName: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
         reason: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
         notes: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
         status: { value: null, matchMode: FilterMatchMode.IN }
@@ -104,14 +104,13 @@ const Appointment=()=> {
     // [{label: 'Unqualified', value:'unqualified'}]
     useEffect(() => {
         fetchData();
-        getAppointmentsByPatient(user.profileId).then((data)=>{
+        getAppointmentsByDoctor(user.profileId).then((data)=>{
             console.log(data);
             setAppointments(getCustomers(data));
         }).catch((error:any)=>{
             console.error("Error fetching appointments", error);
         })
         getDoctorDropdown().then((data)=>{
-            console.log(data);
             setDoctors(data.map((doctor:any)=>({
                 value:""+ doctor.id,
                 label: doctor.name,
@@ -122,7 +121,8 @@ const Appointment=()=> {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchData = ()=>{
-        getAppointmentsByPatient(user.profileId).then((data)=>{
+        getAppointmentsByDoctor(user.profileId).then((data)=>{
+            console.log(data);
             setAppointments(getCustomers(data));
         })
             .catch((error:any)=>{
@@ -242,9 +242,9 @@ const Appointment=()=> {
 
     const actionBodyTemplate = (rowData:any) => {
         return <div className='flex gap-2'>
-            <ActionIcon>
-                <IconEdit size={20} stroke={1.5} />
-            </ActionIcon>
+            {/*<ActionIcon>*/}
+            {/*    <IconEdit size={20} stroke={1.5} />*/}
+            {/*</ActionIcon>*/}
             <ActionIcon color='red' onClick={()=>handleDelete(rowData)}>
                 <IconTrash size={20} stroke={1.5} />
             </ActionIcon>
@@ -313,13 +313,14 @@ const Appointment=()=> {
 
     return (
         <div className="card">
-            <Toolbar className="mb-4" start={leftToolbarTemplate} center={centerToolbarTemplate} end={rightToolbarTemplate}></Toolbar>
+            <Toolbar className="mb-4" start={centerToolbarTemplate} end={rightToolbarTemplate}></Toolbar>
             <DataTable stripedRows value={filteredAppointments} size='small' rows={10}
                        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                        rowsPerPageOptions={[10, 25, 50]} dataKey="id"
-                       filters={filters} filterDisplay="menu" globalFilterFields={['doctorName', 'reason', 'notes', 'status']}
+                       filters={filters} filterDisplay="menu" globalFilterFields={['patientName', 'reason', 'notes', 'status']}
                        emptyMessage="No appointment found." currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
-                <Column field="doctorName" header="Doctor" sortable filter filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
+                <Column field="patientName" header="Patient" sortable filter filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
+                <Column field="patientPhone" header="Phone" style={{ minWidth: '14rem' }} />
                 <Column field="appointmentTime" header="Appointment Time" sortable style={{ minWidth: '14rem' }} body={timeTemplate} />
                 <Column field="reason" header="Reson" sortable filter filterPlaceholder={"Search by name"} style={{ minWidth: '14rem' }} />
                 <Column field="notes" header="Notes" sortable filter filterPlaceholder={"Search by name"} style={{ minWidth: '14rem' }} />
