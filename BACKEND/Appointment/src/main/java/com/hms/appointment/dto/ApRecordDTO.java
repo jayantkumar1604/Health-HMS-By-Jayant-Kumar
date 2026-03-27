@@ -23,9 +23,9 @@ public class ApRecordDTO {
     private List<String> symptoms;
     private String diagnosis;
     private List<String> tests;
-    private String treatment;
     private String notes;
     private String referral;
+    private PrescriptionDTO prescription;
     private LocalDate followUpDate;
     private LocalDateTime createdAt;
 

@@ -1,7 +1,5 @@
 package com.hms.appointment.service;
-
 import com.hms.appointment.dto.ApRecordDTO;
-import com.hms.appointment.entity.ApRecord;
 import com.hms.appointment.exception.HmsException;
 
 public interface ApRecordService {

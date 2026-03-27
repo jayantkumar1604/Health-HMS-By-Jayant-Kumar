@@ -2,10 +2,7 @@ package com.hms.appointment.entity;
 
 import com.hms.appointment.dto.AppointmentDTO;
 import com.hms.appointment.dto.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,5 +38,16 @@ public class Appointment {
     }
     public Appointment(Long id){
         this.id = id;
+    }
+
+    @OneToOne(mappedBy = "appointment", optional = false)
+    private ApRecord apRecord;
+
+    public ApRecord getApRecord() {
+        return apRecord;
+    }
+
+    public void setApRecord(ApRecord apRecord) {
+        this.apRecord = apRecord;
     }
 }

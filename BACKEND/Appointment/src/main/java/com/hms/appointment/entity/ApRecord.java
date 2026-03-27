@@ -1,7 +1,6 @@
 package com.hms.appointment.entity;
 
 import com.hms.appointment.dto.ApRecordDTO;
-import com.hms.appointment.exception.HmsException;
 import com.hms.appointment.utility.StringListConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,7 +31,8 @@ public class ApRecord {
     private LocalDate followUpDate;
     private LocalDateTime createdAt;
 
+
     public ApRecordDTO toDTO() {
-        return new ApRecordDTO(id, patientId, doctorId, appointment.getId(), StringListConverter.convertStringToList(symptoms),diagnosis,StringListConverter.convertStringToList(tests),notes,referral,followUpDate,createdAt);
+        return new ApRecordDTO(id, patientId, doctorId, appointment.getId(), StringListConverter.convertStringToList(symptoms),diagnosis,StringListConverter.convertStringToList(tests),notes,referral,null,followUpDate,createdAt);
     }
 }
