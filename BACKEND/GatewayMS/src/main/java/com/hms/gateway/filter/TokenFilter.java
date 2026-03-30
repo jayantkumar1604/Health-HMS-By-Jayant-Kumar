@@ -27,6 +27,10 @@ public class TokenFilter extends AbstractGatewayFilterFactory<TokenFilter.Config
                 return chain.filter(exchange.mutate().request(r->r.header("X-Secret-Key","SECRET")).build());
             }
 
+            if(path.contains("/appointment/report/create")){
+                return chain.filter(exchange);
+            }
+
             HttpHeaders headers = exchange.getRequest().getHeaders();
 
             if (!headers.containsKey(HttpHeaders.AUTHORIZATION)) {

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/appointment-report")
+@RequestMapping("/appointment/report")
 @Validated
 @RequiredArgsConstructor
 public class ApRecordAPI {

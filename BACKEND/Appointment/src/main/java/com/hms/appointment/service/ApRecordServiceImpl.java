@@ -39,13 +39,24 @@ public class ApRecordServiceImpl implements ApRecordService{
         existing.setNotes(request.getNotes());
         existing.setDiagnosis(request.getDiagnosis());
         existing.setFollowUpDate(request.getFollowUpDate());
+
         existing.setSymptoms(StringListConverter.convertListToString(request.getSymptoms()));
+        existing.setTests(StringListConverter.convertListToString(request.getTests()));
+        existing.setReferral(request.getReferral());
+        apRecordRepository.save(existing);
     }
 
     @Override
     public ApRecordDTO getApRecordByAppointmentId(Long appointmentId) throws HmsException {
         return apRecordRepository.findByAppointment_Id(appointmentId)
                 .orElseThrow(()->new HmsException("APPOINTMENT_RECORD_NOT_FOUND")).toDTO();
+    }
+
+    @Override
+    public ApRecordDTO getApRecordDetailsByAppointmentId(Long appointmentId) throws HmsException {
+        ApRecordDTO record=apRecordRepository.findByAppointment_Id(appointmentId).orElseThrow(()->new HmsException("APPOINTMENT_RECORD_NOT_FOUND")).toDTO();
+        record.setPrescription(prescriptionService.getPrescriptionByAppointmentId(appointmentId));
+        return record;
     }
 
     @Override
