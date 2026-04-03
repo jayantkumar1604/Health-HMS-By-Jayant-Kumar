@@ -59,4 +59,42 @@ const appointmentReasons= [
     "Rehabilitation follow-up",
     "Other"
 ];
-export { bloodGroups , doctorSpecializations, doctorDepartments, bloodGroup, appointmentReasons};
+
+const symptoms = [
+    "Fever",
+    "Cough",
+    "Headache",
+    "Body Pain",
+    "Fatigue",
+    "Sore Throat",
+    "Runny Nose",
+    "Shortness of Breath",
+    "Chest Pain",
+    "Nausea",
+    "Vomiting",
+    "Diarrhea",
+    "Dizziness",
+    "Loss of Appetite",
+    "Chills",
+    "Sweating",
+    "Muscle Weakness",
+    "Back Pain",
+    "Joint Pain",
+    "Abdominal Pain"
+];
+
+const tests = [
+    "Blood Test",
+    "X-Ray",
+    "MRI Scan",
+    "CT Scan",
+    "Urine Test",
+    "ECG",
+    "Ultrasound",
+    "Liver Function Test",
+    "Kidney Function Test",
+    "Thyroid Test",
+    "Blood Sugar Test",
+    "Cholesterol Test"
+];
+export { bloodGroups , doctorSpecializations, doctorDepartments, bloodGroup, appointmentReasons,symptoms,tests};

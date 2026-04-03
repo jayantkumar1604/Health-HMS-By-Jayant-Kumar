@@ -18,8 +18,8 @@ const getAppointment=async(id: any) =>{
         .catch((error:any)=>{throw error;})
 }
 
-const getAppointmentDetails=(id: any) =>{
-    return axiosInstance.put('/appointment/get/details/'+id)
+const getAppointmentDetails=async (id: any) =>{
+    return axiosInstance.get('/appointment/get/details/'+id)
         .then((response:any)=>response.data)
         .catch((error:any)=>{throw error;})
 }

@@ -32,6 +32,12 @@ public class ApRecordAPI {
         return new ResponseEntity<>(apRecordService.getApRecordByAppointmentId(appointmentId), HttpStatus.OK);
     }
 
+
+    @GetMapping("/getDetailsByAppointmentId/{appointmentId}")
+    public ResponseEntity<ApRecordDTO> getAppointmentReportDetailsByAppointmentId(@PathVariable Long appointmentId) throws HmsException {
+        return new ResponseEntity<>(apRecordService.getApRecordDetailsByAppointmentId(appointmentId), HttpStatus.OK);
+    }
+
     @GetMapping("/getById/{recordId}")
     public ResponseEntity<ApRecordDTO> getAppointmentReportById(@PathVariable Long recordId) throws HmsException {
         return new ResponseEntity<>(apRecordService.getApRecordById(recordId), HttpStatus.OK);

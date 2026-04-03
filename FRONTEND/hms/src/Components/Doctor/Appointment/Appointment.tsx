@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { SegmentedControl } from '@mantine/core';
 import { Toolbar } from 'primereact/toolbar';
 import 'primereact/resources/themes/lara-light-blue/theme.css';
@@ -14,7 +15,7 @@ import { DateTimePicker } from '@mantine/dates';
 import {getDoctorDropdown} from '../../../Service/DoctorProfileService'
 import { useDisclosure } from '@mantine/hooks';
 import { TextInput,Textarea,Button,Modal,Select, LoadingOverlay,ActionIcon,Text} from '@mantine/core';
-import {IconSearch,IconPlus ,IconTrash,IconEdit} from '@tabler/icons-react'
+import {IconSearch,IconPlus ,IconTrash,IconEye} from '@tabler/icons-react'
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable, DataTableFilterMeta } from 'primereact/datatable';
 import { Column, ColumnFilterElementTemplateOptions } from 'primereact/column';
@@ -54,6 +55,7 @@ interface Customer {
 }
 
 const Appointment=()=> {
+    const navigate = useNavigate();
     const [opened, { open, close }] = useDisclosure(false);
     const [tab, setTab]=useState<string>('Today');
     const [loading, setLoading] = useState(false);
@@ -242,9 +244,9 @@ const Appointment=()=> {
 
     const actionBodyTemplate = (rowData:any) => {
         return <div className='flex gap-2'>
-            {/*<ActionIcon>*/}
-            {/*    <IconEdit size={20} stroke={1.5} />*/}
-            {/*</ActionIcon>*/}
+            <ActionIcon onClick={() => navigate(""+ rowData.id)}>
+                <IconEye size={20} stroke={1.5} />
+            </ActionIcon>
             <ActionIcon color='red' onClick={()=>handleDelete(rowData)}>
                 <IconTrash size={20} stroke={1.5} />
             </ActionIcon>
