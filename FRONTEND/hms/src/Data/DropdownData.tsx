@@ -97,4 +97,16 @@ const tests = [
     "Blood Sugar Test",
     "Cholesterol Test"
 ];
-export { bloodGroups , doctorSpecializations, doctorDepartments, bloodGroup, appointmentReasons,symptoms,tests};
+const dosageFrequencies = [
+    "1-0-0",  // Morning only
+    "0-1-0",  // Afternoon only
+    "0-0-1",  // Night only
+    "1-0-1",  // Morning + Night
+    "1-1-0",  // Morning + Afternoon
+    "0-1-1",  // Afternoon + Night
+    "1-1-1",  // Morning + Afternoon + Night
+    "2-0-2",  // Two tabs Morning + Night
+    "1-0-2",  // One Morning, Two Night
+    "2-1-2"   // Strong dosage
+];
+export { bloodGroups , doctorSpecializations, doctorDepartments, bloodGroup, appointmentReasons,symptoms,tests,dosageFrequencies};

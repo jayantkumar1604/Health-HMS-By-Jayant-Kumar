@@ -26,7 +26,7 @@ const getAppointmentDetails=async (id: any) =>{
 const getAppointmentsByPatient=async (patientId: any) =>{
     return axiosInstance.get('/appointment/getAllByPatient/'+patientId)
         .then((response:any)=>response.data)
-    .catch((error:any)=>{throw error;})
+        .catch((error:any)=>{throw error;})
 
 }
 
@@ -36,4 +36,10 @@ const getAppointmentsByDoctor=async (doctorId: any) =>{
     .catch((error:any)=>{throw error;})
 }
 
-export {scheduleAppointment,cancelAppointment,getAppointment,getAppointmentDetails,getAppointmentsByPatient,getAppointmentsByDoctor};
+const createAppointmentReport=(data:any)=>{
+    return axiosInstance.post('/appointment/report/create',data)
+        .then((response:any)=>response.data)
+        .catch((error:any)=>{throw error;})
+}
+
+export {scheduleAppointment,cancelAppointment,getAppointment,getAppointmentDetails,getAppointmentsByPatient,getAppointmentsByDoctor,createAppointmentReport};

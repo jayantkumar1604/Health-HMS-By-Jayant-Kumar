@@ -23,14 +23,17 @@ public class TokenFilter extends AbstractGatewayFilterFactory<TokenFilter.Config
 
             String path = exchange.getRequest().getPath().toString();
 
-            if (path.equals("/user/login") || path.equals("/user/register")) {
+            if (path.startsWith("/user/login") || path.startsWith("/user/register")) {
                 return chain.filter(exchange.mutate().request(r->r.header("X-Secret-Key","SECRET")).build());
             }
 
-            if(path.contains("/appointment/report/create")){
+            if (path.startsWith("/appointment/report/create")) {
+                exchange = exchange.mutate()
+                        .request(r -> r.header("X-Secret-Key", "SECRET"))
+                        .build();
+
                 return chain.filter(exchange);
             }
-
             HttpHeaders headers = exchange.getRequest().getHeaders();
 
             if (!headers.containsKey(HttpHeaders.AUTHORIZATION)) {

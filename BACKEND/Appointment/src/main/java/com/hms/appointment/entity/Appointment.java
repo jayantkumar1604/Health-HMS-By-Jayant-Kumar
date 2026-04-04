@@ -21,6 +21,7 @@ public class Appointment {
     private Long doctorId;
 
     private LocalDateTime appointmentTime;
+
     private Status status;
     private String reason;
     private String notes;
@@ -40,7 +41,7 @@ public class Appointment {
         this.id = id;
     }
 
-    @OneToOne(mappedBy = "appointment", optional = false)
+    @OneToOne(mappedBy = "appointment", fetch = FetchType.LAZY, optional = true)
     private ApRecord apRecord;
 
     public ApRecord getApRecord() {
