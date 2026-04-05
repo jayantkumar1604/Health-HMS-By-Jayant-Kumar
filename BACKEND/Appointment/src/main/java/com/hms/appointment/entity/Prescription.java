@@ -1,6 +1,7 @@
 package com.hms.appointment.entity;
 
 import com.hms.appointment.dto.PrescriptionDTO;
+import com.hms.appointment.dto.PrescriptionDetails;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,5 +31,9 @@ public class Prescription {
 
     public PrescriptionDTO toDTO(){
         return new PrescriptionDTO(id,patientId,doctorId,appointment.getId(),prescriptionDate,notes,null);
+    }
+
+    public PrescriptionDetails toDetails(){
+        return new PrescriptionDetails(id,patientId,doctorId,null,appointment.getId(),prescriptionDate,notes,null);
     }
 }

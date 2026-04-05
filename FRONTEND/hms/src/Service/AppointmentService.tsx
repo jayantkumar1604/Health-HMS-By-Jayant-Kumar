@@ -42,4 +42,11 @@ const createAppointmentReport=(data:any)=>{
         .catch((error:any)=>{throw error;})
 }
 
-export {scheduleAppointment,cancelAppointment,getAppointment,getAppointmentDetails,getAppointmentsByPatient,getAppointmentsByDoctor,createAppointmentReport};
+const isReportExists=async (appointmentId: any) =>{
+    return axiosInstance.get('/appointment/report/isRecordExists/'+appointmentId)
+    .then((response:any)=>response.data)
+    .catch((error:any)=>{throw error;})
+}
+
+
+export {scheduleAppointment,cancelAppointment,getAppointment,getAppointmentDetails,getAppointmentsByPatient,getAppointmentsByDoctor,createAppointmentReport,isReportExists};
