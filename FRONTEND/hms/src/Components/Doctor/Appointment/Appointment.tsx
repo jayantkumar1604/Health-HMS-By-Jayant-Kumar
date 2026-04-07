@@ -258,6 +258,7 @@ const Appointment=()=> {
     const handleSubmit=(values: any)=>{
         setLoading(true);
         scheduleAppointment(values).then((data:any)=>{
+
             close();
             form.reset();
             fetchData();

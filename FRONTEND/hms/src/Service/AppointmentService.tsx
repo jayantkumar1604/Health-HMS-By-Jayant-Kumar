@@ -48,5 +48,15 @@ const isReportExists=async (appointmentId: any) =>{
     .catch((error:any)=>{throw error;})
 }
 
+const getReportsByPatientId=async (patientId: any) =>{
+    return axiosInstance.get('/appointment/report/getRecordsByPatientId/'+patientId)
+    .then((response:any)=>response.data)
+    .catch((error:any)=>{throw error;})
+}
 
-export {scheduleAppointment,cancelAppointment,getAppointment,getAppointmentDetails,getAppointmentsByPatient,getAppointmentsByDoctor,createAppointmentReport,isReportExists};
+const getPrescriptionsByPatientId=async (patientId: any) =>{
+    return axiosInstance.get('/appointment/report/getPrescriptionsByPatientId/'+patientId)
+    .then((response:any)=>response.data)
+    .catch((error:any)=>{throw error;})
+}
+export {scheduleAppointment,cancelAppointment,getAppointment,getAppointmentDetails,getAppointmentsByPatient,getAppointmentsByDoctor,createAppointmentReport,isReportExists,getReportsByPatientId,getPrescriptionsByPatientId};

@@ -49,7 +49,7 @@ public class ApRecordAPI {
         return new ResponseEntity<>(apRecordService.getApRecordById(recordId), HttpStatus.OK);
     }
 
-    @GetMapping("/getRecordByPatientId/{patientId}")
+    @GetMapping("/getRecordsByPatientId/{patientId}")
     public ResponseEntity<List<RecordDetails>>getRecordByPatientId(@PathVariable Long patientId) throws HmsException {
         return new ResponseEntity<>(apRecordService.getRecordsByPatientId(patientId), HttpStatus.OK);
     }

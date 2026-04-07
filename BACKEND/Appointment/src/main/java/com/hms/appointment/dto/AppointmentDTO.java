@@ -1,5 +1,6 @@
 package com.hms.appointment.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hms.appointment.entity.Appointment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ public class AppointmentDTO {
     private Long id;
     private Long patientId;
     private Long doctorId;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime appointmentTime;
     private Status status;
     private String reason;

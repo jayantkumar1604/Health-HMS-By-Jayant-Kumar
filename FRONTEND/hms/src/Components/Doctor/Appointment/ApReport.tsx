@@ -1,15 +1,41 @@
 import React from 'react';
+import {DataTable, DataTableFilterMeta} from "primereact/datatable";
+import {IconSearch,IconTrash,IconEye} from '@tabler/icons-react';
 import { Fieldset, TextInput, MultiSelect,Textarea ,Select,NumberInput,ActionIcon,Button} from '@mantine/core'
-import { IconTrash } from "@tabler/icons-react";
 import {symptoms,tests,dosageFrequencies} from "../../../Data/DropdownData";
+import {getReportsByPatientId,isReportExists,createAppointmentReport} from "../../../Service/AppointmentService"
 import {useForm} from "@mantine/form";
-import {createAppointmentReport} from '../../../Service/AppointmentService';
 import {errorNotification, successNotification} from '../../../Utility/NotificationUtil'
 import { useDispatch } from "react-redux";
+import {formatDate} from "../../../Utility/DateUtility";
+import {useNavigate} from "react-router-dom";
+import {useState,useEffect} from "react";
+import { Column } from 'primereact/column';
+import { FilterMatchMode } from 'primereact/api';
+
+
 
 const ApReport = ({appointment}:any) => {
-    console.log("Appointment in Report", appointment);
+    console.log("Appointment in Report:",appointment);
     const dispatch=useDispatch();
+    const [data, setData] = useState<any[]>([]);
+    const [allowAdd, setAllowAdd] = useState<boolean>(false);
+    const [edit, setEdit] = useState(false);
+    const [filters, setFilters] = useState<DataTableFilterMeta>({
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    });
+    const [globalFilterValue, setGlobalFilterValue] = useState<string>('');
+    const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        let _filters:any = { ...filters };
+
+        _filters['global'].value = value;
+
+        setFilters(_filters);
+        setGlobalFilterValue(value);
+    };
+
+    const navigate=useNavigate();
     const [loading, setLoading] = React.useState(false);
     type Medicine={
         name: string,
@@ -60,6 +86,29 @@ const ApReport = ({appointment}:any) => {
         form.removeListItem('prescription.medicines', index);
     }
 
+    useEffect(() => {
+        fetchData();
+    },[appointment?.patientId, appointment.id]);
+    const fetchData = () => {
+        if (!appointment?.patientId) return;
+
+        getReportsByPatientId(appointment.patientId)
+            .then((res) => {
+
+                setData(res);
+            })
+            .catch((err) => {
+                console.error("Error fetching reports:", err);
+            });
+        isReportExists(appointment.id).then((res)=>{
+            setAllowAdd(!res);
+            console.log("Report existence check:", res);
+        }).catch((err)=>{
+            console.error("Error checking report existence:", err);
+            setAllowAdd(true);
+        });
+
+    }
     const handleSubmit = (values: typeof form.values)=>{
         console.log("Form Submitted with values:",values);
         let data={
@@ -74,11 +123,15 @@ const ApReport = ({appointment}:any) => {
                 appointmentId: appointment.id,
             }
         }
+        console.log("Form Submitted with values:",data);
         setLoading(true);
         createAppointmentReport(data)
             .then((res:any)=>{
                 successNotification("Report created successfully.");
                 form.reset();
+                setEdit(false);
+                setAllowAdd(false);
+                fetchData();
             })
             .catch((err:any)=>{
                 errorNotification(err?.response?.data?.errorMessage || "Failed to create report")
@@ -87,8 +140,40 @@ const ApReport = ({appointment}:any) => {
         })
     }
 
+    const actionBodyTemplate = (rowData:any) => {
+        return <div className='flex gap-2'>
+            {/*<ActionIcon onClick={() => navigate("/doctor/appointments/"+ rowData.appointmentId)}>*/}
+            {/*    <IconEye size={20} stroke={1.5} />*/}
+            {/*</ActionIcon>*/}
+
+        </div>
+    };
+    const renderHeader = () => {
+        return (
+            <div className="flex flex-wrap gap-2 justify-between items-center">
+                {allowAdd&& <Button variant="filled" onClick={()=>setEdit(true)}>Add Report</Button>}
+                <TextInput leftSection={<IconSearch />} fw={500} value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
+            </div>
+        );
+    };
+    const header = renderHeader();
+
     return (
-        <form onSubmit={form.onSubmit(handleSubmit)} className="grid gap-5">
+        <div>
+            {!edit ?<DataTable stripedRows header={header} value={data} size='small' rows={10}
+                       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                       rowsPerPageOptions={[10, 25, 50]} dataKey="id"
+                       filters={filters} filterDisplay="menu" globalFilterFields={['doctorName', 'notes']}
+                       emptyMessage="No appointment found." currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+                <Column field="doctorName" header="Doctor" />
+                <Column field="diagnosis" header="Diagnosis" />
+                <Column field="reportDate" header="Report Date" sortable body={(rowData)=>formatDate(rowData.createdAt)} />
+                <Column field="notes" header="Notes"   />
+                <Column headerStyle={{ width: '5rem', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} body={actionBodyTemplate} />
+            </DataTable>
+
+
+            :<form onSubmit={form.onSubmit(handleSubmit)} className="grid gap-5">
             <Fieldset className="grid gap-4 grid-cols-2" legend={<span className="text-lg font-medium text-primary-500">Personal Information</span>} radius="md">
                 <MultiSelect {...form.getInputProps("symptoms")} className="col-span-2" withAsterisk
                              label="Symptoms"
@@ -132,7 +217,8 @@ const ApReport = ({appointment}:any) => {
                 <Button loading={loading} type="submit" className="w-full" variant="filled" color="blue">Submit Report</Button>
                 <Button loading={loading} variant="filled" color="red">Cancel</Button>
             </div>
-        </form>
+        </form>}
+        </div>
     )
 }
 export default ApReport;

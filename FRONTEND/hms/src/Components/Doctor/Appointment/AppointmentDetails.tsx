@@ -1,5 +1,6 @@
     import React from 'react';
-    import ApReport from "./ApReport"
+    import ApReport from "./ApReport";
+    import Prescriptions from "./Prescriptions"
     import {
         IconStethoscope,
         IconVaccine,
@@ -21,7 +22,7 @@
             }).catch((err)=> {
                 console.error("Error fetching appointment details: ", err);
             });
-        }, []);
+        }, [id]);
       return (
         <div>
             <Breadcrumbs mb="md">
@@ -76,7 +77,7 @@
                 </Tabs.Panel>
 
                 <Tabs.Panel value="prescriptions">
-                    Prescriptions
+                    <Prescriptions appointment={appointment} />
                 </Tabs.Panel>
 
                 <Tabs.Panel value="reports">
