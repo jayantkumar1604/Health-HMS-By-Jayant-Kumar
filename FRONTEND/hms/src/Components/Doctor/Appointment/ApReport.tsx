@@ -16,7 +16,6 @@ import { FilterMatchMode } from 'primereact/api';
 
 
 const ApReport = ({appointment}:any) => {
-    console.log("Appointment in Report:",appointment);
     const dispatch=useDispatch();
     const [data, setData] = useState<any[]>([]);
     const [allowAdd, setAllowAdd] = useState<boolean>(false);
@@ -102,7 +101,6 @@ const ApReport = ({appointment}:any) => {
             });
         isReportExists(appointment.id).then((res)=>{
             setAllowAdd(!res);
-            console.log("Report existence check:", res);
         }).catch((err)=>{
             console.error("Error checking report existence:", err);
             setAllowAdd(true);
@@ -110,7 +108,6 @@ const ApReport = ({appointment}:any) => {
 
     }
     const handleSubmit = (values: typeof form.values)=>{
-        console.log("Form Submitted with values:",values);
         let data={
             ...values,
             doctorId: appointment.doctorId,
